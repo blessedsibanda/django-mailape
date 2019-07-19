@@ -132,3 +132,8 @@ STATICFILES_DIRS = [
 
 # configure django crispy forms to use bootstrap4
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# authentication
+LOGIN_URL = 'user:login'
+LOGIN_REDIRECT_URL = 'mailinglist:mailinglist_list'
+LOGOUT_REDIRECT_URL = 'user:login'
