@@ -66,7 +66,7 @@ class ConfirmSubscriptionView(DetailView):
     template_name = 'mailinglist/confirm_subscription.html'
 
     def get_object(self, queryset=None):
-        subscriber = super().get_queryset(queryset=queryset)
+        subscriber = super().get_object(queryset=queryset)
         subscriber.confirmed = True
         subscriber.save()
         return subscriber
