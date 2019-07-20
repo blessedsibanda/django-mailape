@@ -10,7 +10,7 @@ class MailingListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = MailingList
-        fields = ('url', 'id', 'name', 'subscriber_set')
+        fields = ('url', 'id', 'name', 'subscriber_set', 'owner')
         read_only_fields = ('subscriber_set',)
         extra_kwargs = {
             'url': {'view_name':'mailinglist:api-mailing-list-detail'},
@@ -32,7 +32,7 @@ class ReadOnlyEmailSubscriberSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Subscriber
         fields = ('url', 'id', 'email', 'confirmed', 'mailing_list')
-        readonly_fields = ('email', 'mailing_list')
+        read_only_fields = ('email', 'mailing_list')
         extra_kwargs = {
             'url': {'view_name':'mailinglist:api-subscriber-detail'},
             'mailing_list': {'view_name': 'mailinglist:api-mailing-list-detail'}
