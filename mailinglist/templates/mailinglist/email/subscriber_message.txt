@@ -1,0 +1,13 @@
+{{ body }}
+
+---
+
+You're receieving this message because you previously subscribed to 
+{{ mailinglist }}.
+
+If you'd like to unsubscribe go to {{ unsubscribe_link }} and click 
+unsubscribe.
+
+Set with Mail Ape.
+
+

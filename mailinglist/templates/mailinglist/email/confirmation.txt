@@ -1,6 +1,6 @@
 Hello {{subscriber.email}},
 
-Someone (hhopefully you) just subscribed to {{ mailinglist }}.
+Someone (hopefully you) just subscribed to {{ mailinglist }}.
 
 To confirm your subscription go to {{ confirmation_link }}.
 
