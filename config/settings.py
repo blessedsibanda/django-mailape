@@ -131,6 +131,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 
+# markdownify
+MARKDOWINFY_STRIP = False
+MARKDOWNIFY_WHITELIST_TAGS = [
+    'a', 'blockquote', 'code', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+    'h7', 'li', 'ol', 'p', 'pre', 'strong', 'ul',
+]
+
 # configure django crispy forms to use bootstrap4
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -152,5 +159,8 @@ MAILING_LIST_LINK_DOMAIN = 'http://localhost:8000'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # celery
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BROKER_URL = "amqp://localhost//"
+CELERY_RESULT_BACKEND = "amqp://localhost//"
