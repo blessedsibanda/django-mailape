@@ -5,9 +5,14 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, \
                                     DeleteView, DetailView
 
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 from mailinglist.models import MailingList, Subscriber, Message
 from mailinglist.forms import MailingListForm, SubscriberForm, MessageForm
 from mailinglist.mixins import UserCanUseMailingList
+from mailinglist.permissions import CanUseMailingList
+from mailinglist.serializers import MailingListSerializer
 
 class MailingListListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
@@ -129,3 +134,27 @@ class CreateMessageView(LoginRequiredMixin, CreateView):
 class MessageDetailView(LoginRequiredMixin, UserCanUseMailingList,
     DetailView):
     model = Message
+    
+
+class MailingListCreateListView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated, CanUseMailingList)
+    serializer_class = MailingListSerializer
+
+    def get_queryset(self):
+        return self.request.user.mailinglist_set.all()
+
+    def get_serializer(self, *args, **kwargs):
+        if kwargs.get('data', None):
+            data = kwargs.get('data', None)
+            owner = {
+                'owner': self.request.user.id,
+            }
+            data.update(owner)
+        return super().get_serializer(*args, **kwargs)
+
+
+class MailingListRetrieveUpdateDestroyView(
+        generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated, CanUseMailingList)
+    serializer_class = MailingListSerializer
+    queryset = MailingList.objects.all()
